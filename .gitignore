@@ -29,4 +29,3 @@ logs/
 *.bun-build
 tsconfig.tsbuildinfo
 
-_config/
