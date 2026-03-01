@@ -168,20 +168,27 @@ model.provider.npm  →  provider.npm  →  已有模型的 npm  →  models.dev
 
 ## 4. 添加新模型的三种方式
 
-### 方式一：内置供应商 + 环境变量/Auth（最简单）
+### 方式一：内置供应商 + API Key 固化（最便携，推荐）
 
-对于 Anthropic、OpenAI、Google 等内置供应商，只需设置环境变量或使用 `/connect`：
+对于 Anthropic、OpenAI、Google 等内置供应商，如果你希望**跨机器拷贝配置直接使用**，最简单的方法是直接在 `opencode.json` 中配置它们的 `apiKey`：
 
-```bash
-# 方法 A: 环境变量
-export ANTHROPIC_API_KEY="sk-xxx"
-
-# 方法 B: 在 TUI 中执行
-/connect
-# 选择供应商 → 输入 API Key
+```jsonc
+{
+  "provider": {
+    "google": {
+      // 只要指定 apiKey，其它都不用配！模型列表会自动加载
+      "options": {
+        "apiKey": "AIzaSyBhOWYa..."
+      }
+    }
+  }
+}
 ```
 
-无需在 `opencode.json` 中配置任何东西，模型列表从 [models.dev](https://models.dev) 自动拉取。
+> [!TIP]
+> 虽然内置供应商也支持通过环境变量（如 `GEMINI_API_KEY`）配置，但**直接将 key 固化在 JSON 中是最利于多设备跨环境迁移的方式**，一台机器配好，文件一拷就完事了。
+
+也可以在 TUI 中执行 `/connect` 交互式输入，但这会存到 `~/.local/share/opencode/auth.json` 中，需要拷两个文件。
 
 ### 方式二：内置供应商 + 自定义 baseURL（代理场景）
 

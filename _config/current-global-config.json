@@ -24,6 +24,12 @@
           }
         }
       }
+    },
+    // 将 Google (Gemini) 的 API Key 固化在配置中，方便跨机器拷贝使用
+    "google": {
+      "options": {
+        "apiKey": "AIzaSyBhOWYaS_2dUmwXdGdBKX3Gev0zXBlFXqs"
+      }
     }
   }
 }
