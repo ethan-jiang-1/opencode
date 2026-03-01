@@ -9,12 +9,12 @@
 | 文件 | 说明 |
 |------|------|
 | [model-configuration-guide.md](./model-configuration-guide.md) | 模型配置完整指南，包含添加新模型的方法、模板和故障排查 |
-| [current-global-config.json](./current-global-config.json) | 当前全局配置 `~/.config/opencode/opencode.json` 的备份 |
+| [opencode.json](./opencode.json) | 配置模板，可直接拷贝作为 `~/.config/opencode/opencode.json` 使用 |
 
 ## 🚀 如何在新机器上使用
 
 1. 在新机器上安装 OpenCode。
-2. 将本目录下的 `current-global-config.json` 内容，直接覆盖到新机器的 `~/.config/opencode/opencode.json` 文件中。
+2. 将本目录下的 `opencode.json` 文件直接拷贝或覆盖到新机器的 `~/.config/opencode/opencode.json` 路径下。
 3. 完成！所有模型已就绪，直接在终端输入 `opencode` 开始使用。
 
 ## 设计原则

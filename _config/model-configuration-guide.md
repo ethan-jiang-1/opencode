@@ -485,6 +485,6 @@ opencode auth list
 | Provider 实现 | [`packages/opencode/src/provider/provider.ts`](file:///Users/bowhead/opencode/packages/opencode/src/provider/provider.ts) | 所有内置 provider 的 SDK 映射 + 自定义加载器 |
 | 官方文档 - Providers | [opencode.ai/docs/providers](https://opencode.ai/docs/providers) | 各供应商配置方法、自定义 provider、故障排查 |
 | 官方文档 - Intro | [opencode.ai/docs](https://opencode.ai/docs) | 安装、配置、初始化流程 |
-| 你的全局配置 | `~/.config/opencode/opencode.json` | 当前 GLM-5 + Anthropic 代理配置 |
+| 本目录模板 | `opencode.json` | 包含了通用代理、自定义模型和 Google API 固化的最佳实践模板 |
 | 认证存储 | `~/.local/share/opencode/auth.json` | API Key 持久化存储 |
 | JSON Schema | [opencode.ai/config.json](https://opencode.ai/config.json) | 配置自动补全与验证 |

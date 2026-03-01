@@ -8,7 +8,7 @@
 |---|------------|------|---------|---------|-------|
 | ① | `anthropic` | 内置 + 代理 | `opencode.json` 中 apiKey | JSON 显式配置 | ❌ |
 | ② | `glm5` | 自定义私有 | `opencode.json` 中 apiKey | JSON 显式配置 | ✅ |
-| ③ | `google` | 内置（自动检测） | `GEMINI_API_KEY` 环境变量 | `.zshrc` 环境变量 | ❌ |
+| ③ | `google` | 内置 | `opencode.json` 中 apiKey | JSON 显式配置 | ❌ |
 
 ---
 
