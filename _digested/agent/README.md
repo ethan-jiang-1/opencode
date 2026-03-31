@@ -82,4 +82,5 @@ graph TD
 - [4.3 动态知识拉取 (MCP)](./04-Harness/4.3_MCP.md) —— 连入监控与数据库的按需懒加载 (Pull-based) 终极解法。
 - [4.4 外部驱动协议 (ACP)](./04-Harness/4.4_ACP.md) —— 如何让 Zed 这样的外部 IDE / 客户端接管并驱动 Agent 服务端的大脑。
 - [4.5 子智能体编排 (A2A/Subagent)](./04-Harness/4.5_A2A_Subagent.md) —— `subtask` 状态折叠与主从协同的代码审计流水线。
-- [4.6 终端与命令行注入 (CLI/Bash)](./04-Harness/4.6_CLI_And_Bash.md) —— 底层是如何用 AST 编译器 (Tree-Sitter) 物理拦截 `rm -rf` 等危险指令的。
+- [4.6 原生 Bash 引擎 (The Bash Tool)](./04-Harness/4.6_The_Bash_Tool.md) —— 解密大模型盲敲代码背后的 AST (Tree-Sitter) 防御与试探生成。
+- [4.7 外部 CLI 注入 (Custom Injection)](./04-Harness/4.7_Custom_CLI_Injection.md) —— 彻底讲透为什么原生的 Function Call (方生靠) 不行，以及该如何把公司内部的 CLI 软件组装成大模型原生四肢。
