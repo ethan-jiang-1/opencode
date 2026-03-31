@@ -1,26 +1,22 @@
-# 02-Runtime：主循环跳动与流式截获引擎
+# 02-Runtime：运行时主线
 
-## 🎯 目录定调 (Purpose)
+## 目录范围
+聚焦会话执行的时间流：runLoop、processor、LLM 流桥接、重试、状态、调度闸门。
 
-本目录的核心目的是**“生命流转”**。
-如果 `01-Anatomy` 讲的是一具没有任何动静但结构精巧的身体，那么 `02-Runtime` 讲的就是这具身体如何拥有**心脏骤搏 (The Loop)** 和**脑电传递 (The Processor)**。
+## 章节索引
+- [2.1_The_Loop.md](./2.1_The_Loop.md): runLoop 总览
+- [2.2_Processor.md](./2.2_Processor.md): 流事件处理总览
+- [2.3_LLM_Bridge_And_Provider_Shims.md](./2.3_LLM_Bridge_And_Provider_Shims.md): LLM 桥接层
+- [2.4_Retry_Scheduler_And_Backoff_Policy.md](./2.4_Retry_Scheduler_And_Backoff_Policy.md): 重试与退避
+- [2.5_Session_Service_Event_Sourcing.md](./2.5_Session_Service_Event_Sourcing.md): Session 服务与事件写模型
+- [2.6_Status_Channel_And_Retry_Surface.md](./2.6_Status_Channel_And_Retry_Surface.md): 状态通道与重试外显
+- [2.7_Todo_Sidecar_Channel.md](./2.7_Todo_Sidecar_Channel.md): Todo 侧通道
+- [2.8_Processor_Abort_Cleanup_And_Stop_Gates.md](./2.8_Processor_Abort_Cleanup_And_Stop_Gates.md): 中断与清理闸门
+- [2.9_RunLoop_Break_And_Continuation_Gates.md](./2.9_RunLoop_Break_And_Continuation_Gates.md): break/continue 判决面
+- [2.10_Runner_SingleFlight_And_Busy_Gate.md](./2.10_Runner_SingleFlight_And_Busy_Gate.md): Session 单飞与忙闲互斥
+- [2.11_LLM_Stream_Queue_Bridge_And_Cancellation.md](./2.11_LLM_Stream_Queue_Bridge_And_Cancellation.md): AsyncIterable -> Effect Stream
+- [2.12_AutoTitle_FirstTurn_Generator.md](./2.12_AutoTitle_FirstTurn_Generator.md): 首轮自动标题
+- [2.13_ProviderTransform_Normalization_And_Option_Routing.md](./2.13_ProviderTransform_Normalization_And_Option_Routing.md): provider 兼容变换层
 
-这绝对是整个架构最难懂、但也最迷人的地方。在这里需要挖掘 OpenCode 如何用无穷无尽的死循环、结合强大的前端 SDK 流 (Stream)，实现人机对话的自动化断点重续。
-
-如果你想在这个目录底下继续深挖，研读代码的目标绝对要死死锁在 `prompt.ts`, `processor.ts` 等核心生命周期管理文件。
-
-## 📖 核心收录范围与挖掘方向
-
-系统后续的深挖，应该着重破解大模型这头野兽是如何跑进死循环而不会奔溃的：
-
-1. **跳动的心脏：`runLoop` (位于 `session/prompt.ts`)**
-   - 挖掘方向：深挖外层的那个 `while(true)` 循环引擎。搞清楚每一次循环它带了多少信息上去？一旦大模型使用了工具，循环是如何打断、执行、然后重新塞回下一次循环的？
-2. **脑电波流式拦截：`SessionProcessor` (位于 `session/processor.ts`)**
-   - 挖掘方向：这是系统最强的中间件网络！大模型的输出不是一次性生成的字符串，而是流（Stream）。去探索系统是如何拦截流，剥离普通的闲聊（Text），并且立刻阻断流去触发工具调用（ToolCall）的。
-3. **错误自愈与容错轮询**
-   - 挖掘方向：在运行时中，当底层崩溃、网络断开或者模型吐出了一堆不能被 JSON 解析的垃圾时。引擎是如何进行异常恢复 (Self-Healing) 的？去挖掘代码中的熔断器机制。
-
----
-
-> **给后续协作者的提示**：
-> 本目录聚焦于**时间尺度上的流转**。请尽可能地在文档总结中加入时序图 (Mermaid Sequence Diagram) 或者状态转换图机制，以揭示引擎每微秒在做什么操作。
+## 建议顺序
+`2.1 -> 2.2 -> 2.8 -> 2.9 -> 2.10 -> 2.3 -> 2.11 -> 2.4 -> 2.6`

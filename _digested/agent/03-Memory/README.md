@@ -1,24 +1,22 @@
-# 03-Memory：高维反熵增与上下文压缩
+# 03-Memory：记忆与上下文控制
 
-## 🎯 目录定调 (Purpose)
+## 目录范围
+聚焦上下文预算、历史压缩、输出截断、回放恢复和一致性保护。
 
-本目录的核心目的是**“记忆管理与信息衰减控制”**。
-我们知道大模型的致命缺陷就是：**当上下文 (Context Window) 长到了比如 50 轮对话或者塞满了巨大的 Console 报错日志时，它会彻底变成一个弱智（即 Attention 稀释失焦）。**
+## 章节索引
+- [3.1_Compaction.md](./3.1_Compaction.md): Compaction 主线（触发/执行/续跑）
+- [3.2_Prune_And_Truncate.md](./3.2_Prune_And_Truncate.md): 历史裁剪与截断策略
+- [3.3_MessageV2_Model_Adapter.md](./3.3_MessageV2_Model_Adapter.md): 消息到模型适配
+- [3.4_SQLite_Projection_And_Eventual_Consistency.md](./3.4_SQLite_Projection_And_Eventual_Consistency.md): 投影与最终一致性
+- [3.5_Revert_Time_Travel_And_Diff.md](./3.5_Revert_Time_Travel_And_Diff.md): 回滚与差异
+- [3.6_Overflow_Budget_Reservation.md](./3.6_Overflow_Budget_Reservation.md): overflow 预算判决
+- [3.7_SessionSummary_Snapshot_Diff_Aggregator.md](./3.7_SessionSummary_Snapshot_Diff_Aggregator.md): 快照差异聚合
+- [3.8_FileTime_ReadStamp_And_Optimistic_Concurrency.md](./3.8_FileTime_ReadStamp_And_Optimistic_Concurrency.md): read-then-write 一致性
+- [3.9_Truncate_Output_Spool_And_Retention.md](./3.9_Truncate_Output_Spool_And_Retention.md): 大输出落盘与保留
+- [3.10_Compaction_Overflow_Replay_And_Media_Strip.md](./3.10_Compaction_Overflow_Replay_And_Media_Strip.md): overflow 回放与媒体剥离
+- [3.11_Compaction_Agent_DeepDive.md](./3.11_Compaction_Agent_DeepDive.md): Compaction 附录（提示词与时序细节）
 
-OpenCode 这种工业级的长时间开发 Agent，必定拥有着一整套极度强悍的记忆折叠系统。这个分区的目的，就是要逼着你去翻阅源码，把系统是如何对抗“上下文熵增（混乱度升高）”的物理机制全部榨取出来。
-
-## 📖 核心收录范围与挖掘方向
-
-这里只探讨一点：**它如何把垃圾扔出去，并且记住骨干的历史。** 
-
-1. **幽灵节点与降维压缩：`SessionCompaction`**
-   - 挖掘方向：研读它是如何启动极其昂贵且神奇的“幽灵 Agent (`hidden: true`) ”在不打扰用户的后台，自动把前面的 30 条零碎聊天记录阅读一遍，并压缩成一条“核心战报总结”去替换历史的。
-2. **暴力裁断机制：日志截断算法 (Truncate Layer)**
-   - 挖掘方向：去扒一扒像大日志这种剧毒信息是怎么处理的。代码里有个常量通常叫 `MAX_METADATA_LENGTH` 这种阈值，一旦工具执行抛出了几十兆字节的垃圾日志，系统怎么做截断并拼接警示信息给模型？
-3. **RAG / 记忆长廊**
-   - 挖掘方向：除了对话里的短时记忆，是否有向量或者外部配置挂载机制（比如跨对话共享的配置）来形成它的“长期人格”？
-
----
-
-> **给后续协作者的提示**：
-> 不要在这里谈论工具是如何执行的，在这只关心**结果长什么样**、**太长了怎么删**、以及**大模型忘了怎么办**的问题。这里的终极奥义是**维持上下文浓度的纯正**。
+## 收敛状态
+- 第二轮已完成：
+  - `3.1` 收敛为主文。
+  - `3.11` 降为附录，去除重复叙事。

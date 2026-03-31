@@ -1,28 +1,53 @@
-# 04-Harness：外设挂接、能力注入与协议操控
+# 04-Harness：扩展与集成层
 
-## 🎯 目录定调 (Purpose)
+## 目录范围
+聚焦从外部注入能力到内部工具执行的全链路：Hook、Skill、MCP、ACP、Tool、Command、Plugin、Model Catalog。
 
-本目录的核心目的是**“系统扩展与外部操控”**，即大模型的**外机械骨骼**配置手册。
-如果 `01` 到 `03` 构成了那个活在这个黑色终端屏幕里的标准开源智能体，那么 `04-Harness` 是所有打算将 OpenCode 二次开发、魔改、或者整合进商业大型技术管线（例如整合进 IDE，或者接上你们的私有云资源站）的架构师必读地带。
+## 章节索引（按主题）
 
-这绝不是在教你怎么改源码，**而是教你怎么利用系统预留好的高维协议缺口，给这个模型打入外星血清，让它成为你们定制的全天候代码机器人**。
+### A. 基础总览
+- [4.1_Interceptor_Hooks.md](./4.1_Interceptor_Hooks.md)
+- [4.2_Skill.md](./4.2_Skill.md)
+- [4.3_MCP.md](./4.3_MCP.md)
+- [4.4_ACP.md](./4.4_ACP.md)
+- [4.5_A2A_Subagent.md](./4.5_A2A_Subagent.md)
+- [4.6_The_Bash_Tool.md](./4.6_The_Bash_Tool.md): Bash e2e 主链路
+- [4.7_Custom_CLI_Injection.md](./4.7_Custom_CLI_Injection.md): 自定义 CLI 接入主线
 
-## 📖 核心收录范围与挖掘方向
+### B. 插件与协议
+- [4.8_Plugin_Hook_Runtime.md](./4.8_Plugin_Hook_Runtime.md)
+- [4.9_MCP_Multi_Transport_And_OAuth.md](./4.9_MCP_Multi_Transport_And_OAuth.md)
+- [4.10_ACP_Bidirectional_Translator.md](./4.10_ACP_Bidirectional_Translator.md)
+- [4.14_InstructionPrompt_Claim_And_Inheritance.md](./4.14_InstructionPrompt_Claim_And_Inheritance.md)
+- [4.15_SystemPrompt_Model_Routing_And_Skill_Gating.md](./4.15_SystemPrompt_Model_Routing_And_Skill_Gating.md)
+- [4.16_MCP_Auth_Store_And_URL_Binding.md](./4.16_MCP_Auth_Store_And_URL_Binding.md)
+- [4.17_MCP_OAuth_Callback_Server_And_CSRF.md](./4.17_MCP_OAuth_Callback_Server_And_CSRF.md)
+- [4.18_ACP_Session_Manager_State_Model.md](./4.18_ACP_Session_Manager_State_Model.md)
+- [4.19_Plugin_Loader_Resolve_And_Compatibility.md](./4.19_Plugin_Loader_Resolve_And_Compatibility.md)
+- [4.20_Plugin_Config_Patcher_JSONC_Workflow.md](./4.20_Plugin_Config_Patcher_JSONC_Workflow.md)
+- [4.21_Plugin_Meta_Fingerprint_And_Theme_Tracking.md](./4.21_Plugin_Meta_Fingerprint_And_Theme_Tracking.md)
+- [4.32_ModelsDev_Catalog_Fallback_And_HotRefresh.md](./4.32_ModelsDev_Catalog_Fallback_And_HotRefresh.md)
 
-无论后续挖掘什么模块代码，只要它的目的是**从外面将非系统的能力“塞”进大模型脑字里的**，都归于此。
+### C. 工具执行内核
+- [4.11_Edit_Tool_Robust_Replacement_Engine.md](./4.11_Edit_Tool_Robust_Replacement_Engine.md)
+- [4.12_ApplyPatch_Safe_Pipeline.md](./4.12_ApplyPatch_Safe_Pipeline.md)
+- [4.13_Task_Tool_Subagent_Sandboxing.md](./4.13_Task_Tool_Subagent_Sandboxing.md)
+- [4.22_ReadTool_Guarded_Slicing_And_Multimodal_Attachment.md](./4.22_ReadTool_Guarded_Slicing_And_Multimodal_Attachment.md)
+- [4.23_WriteTool_Diff_Gated_Write_And_Diagnostics_Fanout.md](./4.23_WriteTool_Diff_Gated_Write_And_Diagnostics_Fanout.md)
+- [4.24_BashTool_AST_Path_Resolver_And_Permission_Synthesis.md](./4.24_BashTool_AST_Path_Resolver_And_Permission_Synthesis.md): Bash 机制深潜
+- [4.29_SessionPrompt_ResolveTools_Context_Bridge.md](./4.29_SessionPrompt_ResolveTools_Context_Bridge.md): 工具桥接内核
+- [4.30_BashArity_Command_Intention_Compressor.md](./4.30_BashArity_Command_Intention_Compressor.md)
 
-1. **静态约束注入 (Skills)**
-   - 挖掘方向：去源码里找如何通过挂载外部的 `.md` 或者配置指令，把诸如“我们公司强制要求函数命名用下划线”的知识不费吹灰之力地变成模型的本能。
-2. **动态协议级拉取 (MCP: Model Context Protocol)**
-   - 挖掘方向：对于需要跨机器或通过标准化协议动态懒加载的数据库知识（比如线上日志平台），系统是如何接入第三方 MCP Server 的？
-3. **被外部控制台接管 (ACP: Agent Client Protocol)**
-   - 挖掘方向：这也是 OpenCode 极其先进的点。探究诸如 Zed 这样的重型 IDE，是如何隔空通过 Json-RPC，把 OpenCode 变成一个 Headless 核心引擎在客户端上指哪打哪的。
-4. **多重影分身 (Subagent Orchestration / 子系统编排)**
-   - 挖掘方向：当需求过大时，单体模型必然挂掉。系统有没有使用 `Subtask` 来开创一个子房间（比如拉起另一个专注帮它写测试的模型），完事后折叠汇报给主模型？
-5. **极高权限的工具与CLI注入 (Custom CLI Tools)**
-   - 挖掘方向：如何利用底层的工具注册表，极其优雅地跳过生拼硬写的劣质脚本代码，让极高权限的公司定制命令行直接化身为受 Zod 自闭环保护的大模型原生工具（Custom Tools）。
+### D. 输入编译与命令通道
+- [4.25_SessionPrompt_ResolvePromptParts_Markdown_Expander.md](./4.25_SessionPrompt_ResolvePromptParts_Markdown_Expander.md)
+- [4.26_SessionPrompt_UserPart_File_MCP_Transcoder.md](./4.26_SessionPrompt_UserPart_File_MCP_Transcoder.md)
+- [4.27_StructuredOutput_Tool_Enforcement_Lane.md](./4.27_StructuredOutput_Tool_Enforcement_Lane.md)
+- [4.28_Command_Template_Compiler_And_Subtask_Lowering.md](./4.28_Command_Template_Compiler_And_Subtask_Lowering.md)
+- [4.31_SessionPrompt_ShellImpl_UserCommand_Replay.md](./4.31_SessionPrompt_ShellImpl_UserCommand_Replay.md)
 
----
-
-> **给后续协作者的提示**：
-> **不要空谈理论！**这里的文档必须严格追溯到 `packages/opencode/src/` 中对应的高层协议接口。任何新增的文档，最后都要贴上一段非常直观的、从外层插入的“胶水代码”，以展示其实操能力。
+## 收敛状态
+- 第二轮已完成：
+  - `4.6` 收敛为 e2e 主链路文。
+  - `4.24` 保留为 Bash 机制深潜文。
+  - `4.7` 收敛为外部 CLI 接入主线。
+  - `4.29` 保留为内部桥接实现文。
