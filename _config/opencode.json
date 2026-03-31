@@ -1,0 +1,57 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "glm5/glm-5",
+  "provider": {
+    "anthropic-mirror": {
+      "npm": "@ai-sdk/anthropic",
+      "name": "Anthropic (via aicodemirror)",
+      "options": {
+        "baseURL": "https://api.aicodemirror.com/api/claudecode/v1",
+        "authToken": "sk-ant-api03-sDCEaHHeROiFNnaAOzP3ZK1GZQvkIaMRuwch6xUHNVXFsy_gBS0U8lgaSjDdQpZX8J6s9unjiSlT1FIcEnBS5w"
+      },
+      "models": {
+        "claude-haiku-4": {
+          "id": "claude-haiku-4-20250514",
+          "name": "Claude Haiku 4",
+          "limit": {
+            "context": 200000,
+            "output": 8192
+          },
+          "tool_call": true
+        },
+        "claude-haiku-4-5": {
+          "id": "claude-haiku-4-5-20251001",
+          "name": "Claude Haiku 4.5",
+          "limit": {
+            "context": 200000,
+            "output": 8192
+          },
+          "tool_call": true
+        }
+      }
+    },
+    "glm5": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "GLM-5 Private",
+      "options": {
+        "baseURL": "https://ds-api.yovole.com/v1",
+        "apiKey": "sk-Tx5APV2r4NYeaEAf624471305188425c9aA49875531e1a5d"
+      },
+      "models": {
+        "glm-5": {
+          "name": "GLM-5",
+          "limit": {
+            "context": 200000,
+            "output": 64000
+          }
+        }
+      }
+    },
+    // 将 Google (Gemini) 的 API Key 固化在配置中，方便跨机器拷贝使用
+    "google": {
+      "options": {
+        "apiKey": "AIzaSyBhOWYaS_2dUmwXdGdBKX3Gev0zXBlFXqs"
+      }
+    }
+  }
+}
