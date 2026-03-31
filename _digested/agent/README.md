@@ -76,7 +76,10 @@ graph TD
 - [3.1 Context Compaction](./03-Memory/3.1_Compaction.md) —— 极其巧妙的 "幻影 Agent" (`hidden: true`) 压缩设计。
 
 ### [04-Harness (定制落地指南与扩展实战)](./04-Harness/)
-对于打算将系统私有化、集成研发管线的高级玩家，这里提供了实战范式。
-- [4.1 Interceptor Hooks 实战](./04-Harness/4.1_Interceptor_Hooks.md) —— 拦截流转，硬插 RAG。
-- [4.2 Skills 与动态拉取 MCP](./04-Harness/4.2_Skill_And_MCP.md) —— 静动态业务结合点。
-- [4.3 Subagent Orchestration](./04-Harness/4.3_Subagent_Orchestration.md) —— 通过主从循环解构史诗级需求。
+对于打算将系统私有化、集成研发管线的高级玩家，这里提供了所有的能力注入实战范式。
+- [4.1 拦截器钩子实战 (Hooks)](./04-Harness/4.1_Interceptor_Hooks.md) —— 在循环间隙硬塞 RAG 向量知识。
+- [4.2 静态能力注入 (Skill)](./04-Harness/4.2_Skill.md) —— 如何通过 Markdown 规范自动干预代码产出。
+- [4.3 动态知识拉取 (MCP)](./04-Harness/4.3_MCP.md) —— 连入监控与数据库的按需懒加载 (Pull-based) 终极解法。
+- [4.4 外部驱动协议 (ACP)](./04-Harness/4.4_ACP.md) —— 如何让 Zed 这样的外部 IDE / 客户端接管并驱动 Agent 服务端的大脑。
+- [4.5 子智能体编排 (A2A/Subagent)](./04-Harness/4.5_A2A_Subagent.md) —— `subtask` 状态折叠与主从协同的代码审计流水线。
+- [4.6 终端与命令行注入 (CLI/Bash)](./04-Harness/4.6_CLI_And_Bash.md) —— 底层是如何用 AST 编译器 (Tree-Sitter) 物理拦截 `rm -rf` 等危险指令的。
